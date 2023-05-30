@@ -1,5 +1,7 @@
 from django.db import models
 
+from lesson2.validators import validate_height
+
 
 class Person(models.Model):
     first_name = models.CharField('Имя', max_length=30)
@@ -8,10 +10,38 @@ class Person(models.Model):
     last_update = models.DateField('Обновление профиля', auto_now=True)
     registration_date = models.DateField('Дата регистрации', auto_now_add=True)
 
+    def __str__(self):
+        return f"Person: {self.pk}-{self.first_name}-{self.last_name}"
+
+    def __repr__(self):
+        return f"Person: {self.pk}-{self.first_name}-{self.last_name}"
+
 
 class PersonProfile(models.Model):
-    height = models.DecimalField('Рост(см.)', max_digits=5, decimal_places=2)
+    height = models.DecimalField(
+        'Рост(см.)',
+        max_digits=5,
+        decimal_places=2,
+        validators=[
+            validate_height
+        ],
+    )
     photo = models.ImageField('Фото', upload_to='photos/books/authors')
+    owner = models.OneToOneField(
+        Person,
+        on_delete=models.CASCADE,
+        verbose_name='Пользователь'
+    )
+
+    # class Meta:
+    #     verbose_name = ''
+    #     verbose_name_plural = ''
+    #     objects = ''
+    #     ordering = ['height']
+    #     order_with_respect_to = ''
+    #     indexes = ''
+    #     index_together = ''
+    #     abstract = True
 
 
 class Authors(models.Model):
