@@ -1,7 +1,10 @@
-from django.urls import path
+# from django.urls import path
 
-from lesson4.views import making_queries
+from lesson4.convertors import register_all_ls4_converters
+# from lesson4.views import making_queries
 
+
+register_all_ls4_converters()
 urlpatterns = [
-    path('', making_queries)
+    # path('<date:id>', making_queries)
 ]

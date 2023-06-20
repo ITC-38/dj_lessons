@@ -49,6 +49,10 @@ class Authors(models.Model):
     birth_date = models.DateField('Дата рождения')
     photo = models.ImageField('Фото', upload_to='photos/books/authors')
 
+    class Meta:
+        verbose_name = 'Автор'
+        verbose_name_plural = 'Авторы'
+
 
 class Currency(models.Model):
     name = models.CharField(max_length=200)
